@@ -17,6 +17,10 @@
 		025060F72781FF400073C2BD /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025060F62781FF400073C2BD /* Double.swift */; };
 		025060F92781FF5B0073C2BD /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025060F82781FF5B0073C2BD /* PreviewProvider.swift */; };
 		025060FD2781FFEB0073C2BD /* CoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025060FC2781FFEB0073C2BD /* CoinCell.swift */; };
+		025061012782196B0073C2BD /* CoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025061002782196B0073C2BD /* CoinViewModel.swift */; };
+		0250610427821B3C0073C2BD /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 0250610327821B3C0073C2BD /* RxCocoa */; };
+		0250610627821B3C0073C2BD /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 0250610527821B3C0073C2BD /* RxRelay */; };
+		0250610827821B3C0073C2BD /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0250610727821B3C0073C2BD /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,7 @@
 		025060F62781FF400073C2BD /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		025060F82781FF5B0073C2BD /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		025060FC2781FFEB0073C2BD /* CoinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinCell.swift; sourceTree = "<group>"; };
+		025061002782196B0073C2BD /* CoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +44,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0250610827821B3C0073C2BD /* RxSwift in Frameworks */,
+				0250610627821B3C0073C2BD /* RxRelay in Frameworks */,
+				0250610427821B3C0073C2BD /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +104,7 @@
 		02422D1E2781BCAF00A58341 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				025061002782196B0073C2BD /* CoinViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -143,6 +152,11 @@
 			dependencies = (
 			);
 			name = CryptoWallet;
+			packageProductDependencies = (
+				0250610327821B3C0073C2BD /* RxCocoa */,
+				0250610527821B3C0073C2BD /* RxRelay */,
+				0250610727821B3C0073C2BD /* RxSwift */,
+			);
 			productName = CryptoWallet;
 			productReference = 02422CFE2780FF4500A58341 /* CryptoWallet.app */;
 			productType = "com.apple.product-type.application";
@@ -171,6 +185,9 @@
 				Base,
 			);
 			mainGroup = 02422CF52780FF4500A58341;
+			packageReferences = (
+				0250610227821B3C0073C2BD /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = 02422CFF2780FF4500A58341 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -200,6 +217,7 @@
 				025060FD2781FFEB0073C2BD /* CoinCell.swift in Sources */,
 				02422D062780FF4500A58341 /* HomeViewController.swift in Sources */,
 				02422D1A2781B90000A58341 /* Color.swift in Sources */,
+				025061012782196B0073C2BD /* CoinViewModel.swift in Sources */,
 				025060E62781C5800073C2BD /* CircleButtonView.swift in Sources */,
 				025060EC2781F9910073C2BD /* Coin.swift in Sources */,
 				025060F72781FF400073C2BD /* Double.swift in Sources */,
@@ -407,6 +425,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0250610227821B3C0073C2BD /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0250610327821B3C0073C2BD /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0250610227821B3C0073C2BD /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		0250610527821B3C0073C2BD /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0250610227821B3C0073C2BD /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		0250610727821B3C0073C2BD /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0250610227821B3C0073C2BD /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 02422CF62780FF4500A58341 /* Project object */;
 }

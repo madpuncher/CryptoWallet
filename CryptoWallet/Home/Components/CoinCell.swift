@@ -1,6 +1,8 @@
 import UIKit
 
-class CoinCell: UITableViewCell {
+final class CoinCell: UITableViewCell {
+    
+    static let identifier = "CoinCellID"
     
     private let coinRankLabel: UILabel = {
         let label = UILabel()
@@ -72,23 +74,12 @@ class CoinCell: UITableViewCell {
         return stack
     }()
     
-    static let identifier = "CoinCellID"
-    
-    let coin = DeveloperPreview.instance.coin
-
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        coinRankLabel.text = "\(coin.rank)"
-        coinSymbolLabel.text = coin.symbol.uppercased()
-        currentPriceLabel.text = coin.currentPrice.asCurrencyWith6Decimals()
-        priceChangedLabel.text = coin.priceChangePercentage24H?.asPercentString()
-        currentHoldingsLabel.text = coin.currentHoldingsValue.asCurrencyWith2Decimals()
-        currentHoldingsShortLabel.text = (coin.currentHoldings ?? 0).asNumberString()
         
         addViews()
         setupConstraints()
@@ -100,6 +91,15 @@ class CoinCell: UITableViewCell {
         super.layoutSubviews()
         
         coinImage.layer.cornerRadius = coinImage.frame.height / 2
+    }
+    
+    public func configureAppearance(coin: Coin) {
+        coinRankLabel.text = "\(coin.rank)"
+        coinSymbolLabel.text = coin.symbol.uppercased()
+        currentPriceLabel.text = coin.currentPrice.asCurrencyWith6Decimals()
+        priceChangedLabel.text = coin.priceChangePercentage24H?.asPercentString()
+        currentHoldingsLabel.text = coin.currentHoldingsValue.asCurrencyWith2Decimals()
+        currentHoldingsShortLabel.text = (coin.currentHoldings ?? 0).asNumberString()
     }
     
     private func addViews() {
@@ -139,23 +139,3 @@ class CoinCell: UITableViewCell {
     }
 
 }
-
-import SwiftUI
-
-struct ViewControllesr_Previews: PreviewProvider {
-    static var previews: some View {
-        Container()
-            .edgesIgnoringSafeArea(.all)
-    }
-    
-    struct Container: UIViewControllerRepresentable {
-        func makeUIViewController(context: Context) -> some UIViewController {
-            UINavigationController(rootViewController: HomeViewController())
-        }
-        
-        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-            
-        }
-    }
-}
-

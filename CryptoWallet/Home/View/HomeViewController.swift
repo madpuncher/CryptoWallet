@@ -1,4 +1,6 @@
 import UIKit
+import RxCocoa
+import RxSwift
 
 class HomeViewController: UIViewController {
     
@@ -12,7 +14,42 @@ class HomeViewController: UIViewController {
         return label
     }()
     
+    private let coinColumnLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Coin"
+        label.font = .preferredFont(forTextStyle: .caption1)
+        label.textColor = .theme.secondaryText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let holdingsColumnLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Holdings"
+        label.font = .preferredFont(forTextStyle: .caption1)
+        label.textColor = .theme.secondaryText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let priceColumnLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Price"
+        label.font = .preferredFont(forTextStyle: .caption1)
+        label.textColor = .theme.secondaryText
+        label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private let coinTableView: UITableView = {
+        let table = UITableView()
+        table.register(CoinCell.self, forCellReuseIdentifier: CoinCell.identifier)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
+    }()
+    
+    private let portfolioTableView: UITableView = {
         let table = UITableView()
         table.register(CoinCell.self, forCellReuseIdentifier: CoinCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +59,11 @@ class HomeViewController: UIViewController {
     private let leftCircleButton = CircleButtonView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), buttonName: "info")
     private let rightCircleButton = CircleButtonView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), buttonName: "chevron.right")
     
+    private let viewModel: CoinViewModel = CoinViewModel()
+    
     private var showPortfolio = false
+    
+    private var bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +71,9 @@ class HomeViewController: UIViewController {
         addViews()
         setupConstraints()
         configureAppearance()
+        setupTableView()
+        portfolioTableView.isHidden = true
+        holdingsColumnLabel.alpha = 0
     }
     
     private func addViews() {
@@ -37,6 +81,11 @@ class HomeViewController: UIViewController {
         view.addSubview(leftCircleButton)
         view.addSubview(rightCircleButton)
         view.addSubview(coinTableView)
+        view.addSubview(portfolioTableView)
+        view.addSubview(coinColumnLabel)
+        view.addSubview(holdingsColumnLabel)
+        view.addSubview(priceColumnLabel)
+
     }
     
     private func setupConstraints() {
@@ -59,11 +108,40 @@ class HomeViewController: UIViewController {
             coinTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             coinTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             coinTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            coinTableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16)
+            coinTableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16),
+            
+            portfolioTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            portfolioTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            portfolioTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            portfolioTableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16),
+            
+            coinColumnLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            coinColumnLabel.bottomAnchor.constraint(equalTo: coinTableView.topAnchor, constant: -5),
+            
+            priceColumnLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            priceColumnLabel.bottomAnchor.constraint(equalTo: coinTableView.topAnchor, constant: -5),
+            priceColumnLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3.5),
+            
+            holdingsColumnLabel.trailingAnchor.constraint(equalTo: priceColumnLabel.leadingAnchor),
+            holdingsColumnLabel.bottomAnchor.constraint(equalTo: coinTableView.topAnchor, constant: -5),
         ])
     }
     
+    private func setupTableView() {
+        viewModel.allCoins.bind(to: coinTableView.rx.items(cellIdentifier: CoinCell.identifier, cellType: CoinCell.self)) { row, item, cell in
+            cell.configureAppearance(coin: item)
+        }
+        .disposed(by: bag)
+        
+        viewModel.portfolioCoins.bind(to: portfolioTableView.rx.items(cellIdentifier: CoinCell.identifier, cellType: CoinCell.self)) { row, item, cell in
+            cell.configureAppearance(coin: item)
+        }
+        .disposed(by: bag)
+    }
+    
     private func configureAppearance() {
+        view.backgroundColor = .theme.background
+        
         navigationController?.isNavigationBarHidden = true
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(chevronWasTapped))
@@ -72,39 +150,34 @@ class HomeViewController: UIViewController {
         
         leftCircleButton.translatesAutoresizingMaskIntoConstraints = false
         rightCircleButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        coinTableView.delegate = self
-        coinTableView.dataSource = self
     }
     
     @objc private func chevronWasTapped() {
         showPortfolio.toggle()
         
         UIView.animate(withDuration: 0.4) { [weak self] in
-            if !self!.showPortfolio {
+            if self!.showPortfolio {
                 self?.rightCircleButton.transform = CGAffineTransform(rotationAngle: .pi)
                 self?.headerLabel.text = "Portfolio"
                 self?.leftCircleButton.imageName = "plus"
+                self?.holdingsColumnLabel.alpha = 1
             } else {
                 self?.rightCircleButton.transform = CGAffineTransform.identity
                 self?.headerLabel.text = "Live Prices"
                 self?.leftCircleButton.imageName = "info"
+                self?.holdingsColumnLabel.alpha = 0
             }
         }
-    }
-}
-
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CoinCell.identifier, for: indexPath) as! CoinCell
         
-        return cell
+        if showPortfolio {
+            coinTableView.isHidden = true
+            portfolioTableView.isHidden = false
+        } else {
+            coinTableView.isHidden = false
+            portfolioTableView.isHidden = true
+        }
+        
     }
-    
 }
 
 import SwiftUI
