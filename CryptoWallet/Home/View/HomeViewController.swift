@@ -12,6 +12,13 @@ class HomeViewController: UIViewController {
         return label
     }()
     
+    private let coinTableView: UITableView = {
+        let table = UITableView()
+        table.register(CoinCell.self, forCellReuseIdentifier: CoinCell.identifier)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
+    }()
+    
     private let leftCircleButton = CircleButtonView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), buttonName: "info")
     private let rightCircleButton = CircleButtonView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), buttonName: "chevron.right")
     
@@ -29,6 +36,7 @@ class HomeViewController: UIViewController {
         view.addSubview(headerLabel)
         view.addSubview(leftCircleButton)
         view.addSubview(rightCircleButton)
+        view.addSubview(coinTableView)
     }
     
     private func setupConstraints() {
@@ -47,6 +55,11 @@ class HomeViewController: UIViewController {
             rightCircleButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             rightCircleButton.heightAnchor.constraint(equalToConstant: 66),
             rightCircleButton.widthAnchor.constraint(equalToConstant: 66),
+            
+            coinTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            coinTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            coinTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            coinTableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16)
         ])
     }
     
@@ -59,6 +72,9 @@ class HomeViewController: UIViewController {
         
         leftCircleButton.translatesAutoresizingMaskIntoConstraints = false
         rightCircleButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        coinTableView.delegate = self
+        coinTableView.dataSource = self
     }
     
     @objc private func chevronWasTapped() {
@@ -76,7 +92,19 @@ class HomeViewController: UIViewController {
             }
         }
     }
+}
 
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CoinCell.identifier, for: indexPath) as! CoinCell
+        
+        return cell
+    }
+    
 }
 
 import SwiftUI
@@ -97,3 +125,4 @@ struct ViewController_Previews: PreviewProvider {
         }
     }
 }
+
