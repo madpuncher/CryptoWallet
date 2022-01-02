@@ -8,22 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		02422D022780FF4500A58341 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02422D012780FF4500A58341 /* AppDelegate.swift */; };
-		02422D042780FF4500A58341 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02422D032780FF4500A58341 /* SceneDelegate.swift */; };
 		02422D062780FF4500A58341 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02422D052780FF4500A58341 /* ViewController.swift */; };
-		02422D092780FF4500A58341 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02422D072780FF4500A58341 /* Main.storyboard */; };
 		02422D0B2780FF4500A58341 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02422D0A2780FF4500A58341 /* Assets.xcassets */; };
-		02422D0E2780FF4500A58341 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02422D0C2780FF4500A58341 /* LaunchScreen.storyboard */; };
+		02422D1A2781B90000A58341 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02422D192781B90000A58341 /* Color.swift */; };
+		02422D1C2781B97000A58341 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02422D1B2781B97000A58341 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		02422CFE2780FF4500A58341 /* CryptoWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02422D012780FF4500A58341 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		02422D032780FF4500A58341 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		02422D052780FF4500A58341 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		02422D082780FF4500A58341 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		02422D0A2780FF4500A58341 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		02422D0D2780FF4500A58341 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02422D0F2780FF4500A58341 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02422D192781B90000A58341 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Color.swift; path = ../../../../Color.swift; sourceTree = "<group>"; };
+		02422D1B2781B97000A58341 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,14 +55,45 @@
 			isa = PBXGroup;
 			children = (
 				02422D012780FF4500A58341 /* AppDelegate.swift */,
-				02422D032780FF4500A58341 /* SceneDelegate.swift */,
-				02422D052780FF4500A58341 /* ViewController.swift */,
-				02422D072780FF4500A58341 /* Main.storyboard */,
+				02422D1F2781BCB500A58341 /* Model */,
+				02422D1E2781BCAF00A58341 /* ViewModel */,
+				02422D1D2781BCA600A58341 /* View */,
+				02422D182781B8F300A58341 /* Extensions */,
+				02422D1B2781B97000A58341 /* LaunchScreen.storyboard */,
 				02422D0A2780FF4500A58341 /* Assets.xcassets */,
-				02422D0C2780FF4500A58341 /* LaunchScreen.storyboard */,
 				02422D0F2780FF4500A58341 /* Info.plist */,
 			);
 			path = CryptoWallet;
+			sourceTree = "<group>";
+		};
+		02422D182781B8F300A58341 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				02422D192781B90000A58341 /* Color.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		02422D1D2781BCA600A58341 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				02422D052780FF4500A58341 /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		02422D1E2781BCAF00A58341 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		02422D1F2781BCB500A58341 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,9 +154,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02422D0E2780FF4500A58341 /* LaunchScreen.storyboard in Resources */,
 				02422D0B2780FF4500A58341 /* Assets.xcassets in Resources */,
-				02422D092780FF4500A58341 /* Main.storyboard in Resources */,
+				02422D1C2781B97000A58341 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,31 +167,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				02422D062780FF4500A58341 /* ViewController.swift in Sources */,
+				02422D1A2781B90000A58341 /* Color.swift in Sources */,
 				02422D022780FF4500A58341 /* AppDelegate.swift in Sources */,
-				02422D042780FF4500A58341 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		02422D072780FF4500A58341 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				02422D082780FF4500A58341 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		02422D0C2780FF4500A58341 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				02422D0D2780FF4500A58341 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		02422D102780FF4500A58341 /* Debug */ = {
@@ -294,9 +303,10 @@
 				INFOPLIST_FILE = CryptoWallet/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,7 +316,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -322,9 +332,10 @@
 				INFOPLIST_FILE = CryptoWallet/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,7 +345,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
