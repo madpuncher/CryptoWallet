@@ -5,12 +5,20 @@ final class CoinViewModel {
     private(set) var allCoins = PublishSubject<[Coin]>()
     private(set) var portfolioCoins = PublishSubject<[Coin]>()
     
+    private let networkService = CoinDataService()
+    
+    var disposeBag = DisposeBag()
+    
     init() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.allCoins.onNext([DeveloperPreview.instance.coin, DeveloperPreview.instance.coin])
-            self.portfolioCoins.onNext([DeveloperPreview.instance.coin])
-            self.allCoins.onCompleted()
-            self.portfolioCoins.onCompleted()
-        }
+        createSubscriber()
+    }
+    
+    private func createSubscriber() {
+        networkService.allCoins
+            .subscribe { data in
+                guard let coins = data.element else { return }
+                self.allCoins.onNext(coins)
+            }
+            .disposed(by: disposeBag)
     }
 }

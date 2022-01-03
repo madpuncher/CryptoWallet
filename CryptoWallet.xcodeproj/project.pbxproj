@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		02055F1627832275005EB5D1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02055F1527832275005EB5D1 /* UIView.swift */; };
+		02055F1C2783296C005EB5D1 /* CoinDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02055F1B2783296C005EB5D1 /* CoinDataService.swift */; };
+		02055F1F27832DBF005EB5D1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 02055F1E27832DBF005EB5D1 /* Alamofire */; };
 		02422D022780FF4500A58341 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02422D012780FF4500A58341 /* AppDelegate.swift */; };
 		02422D062780FF4500A58341 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02422D052780FF4500A58341 /* HomeViewController.swift */; };
 		02422D0B2780FF4500A58341 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02422D0A2780FF4500A58341 /* Assets.xcassets */; };
@@ -26,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		02055F1527832275005EB5D1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		02055F1B2783296C005EB5D1 /* CoinDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDataService.swift; sourceTree = "<group>"; };
 		02422CFE2780FF4500A58341 /* CryptoWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02422D012780FF4500A58341 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02422D052780FF4500A58341 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +50,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0250610827821B3C0073C2BD /* RxSwift in Frameworks */,
+				02055F1F27832DBF005EB5D1 /* Alamofire in Frameworks */,
 				0250610627821B3C0073C2BD /* RxRelay in Frameworks */,
 				0250610427821B3C0073C2BD /* RxCocoa in Frameworks */,
 			);
@@ -55,6 +59,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02055F1A27832964005EB5D1 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				02055F1B2783296C005EB5D1 /* CoinDataService.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		02422CF52780FF4500A58341 = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +135,7 @@
 		025060E72781F6230073C2BD /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				02055F1A27832964005EB5D1 /* Networking */,
 				025060EF2781FB1E0073C2BD /* Components */,
 				02422D1E2781BCAF00A58341 /* ViewModel */,
 				02422D1D2781BCA600A58341 /* View */,
@@ -159,6 +172,7 @@
 				0250610327821B3C0073C2BD /* RxCocoa */,
 				0250610527821B3C0073C2BD /* RxRelay */,
 				0250610727821B3C0073C2BD /* RxSwift */,
+				02055F1E27832DBF005EB5D1 /* Alamofire */,
 			);
 			productName = CryptoWallet;
 			productReference = 02422CFE2780FF4500A58341 /* CryptoWallet.app */;
@@ -190,6 +204,7 @@
 			mainGroup = 02422CF52780FF4500A58341;
 			packageReferences = (
 				0250610227821B3C0073C2BD /* XCRemoteSwiftPackageReference "RxSwift" */,
+				02055F1D27832DBF005EB5D1 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 02422CFF2780FF4500A58341 /* Products */;
 			projectDirPath = "";
@@ -227,6 +242,7 @@
 				025060F92781FF5B0073C2BD /* PreviewProvider.swift in Sources */,
 				02422D022780FF4500A58341 /* AppDelegate.swift in Sources */,
 				0250610A278312040073C2BD /* Color.swift in Sources */,
+				02055F1C2783296C005EB5D1 /* CoinDataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +447,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		02055F1D27832DBF005EB5D1 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		0250610227821B3C0073C2BD /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -442,6 +466,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		02055F1E27832DBF005EB5D1 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02055F1D27832DBF005EB5D1 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		0250610327821B3C0073C2BD /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0250610227821B3C0073C2BD /* XCRemoteSwiftPackageReference "RxSwift" */;

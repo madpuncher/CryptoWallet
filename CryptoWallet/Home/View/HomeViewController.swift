@@ -105,7 +105,7 @@ class HomeViewController: UIViewController {
             
             coinTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             coinTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            coinTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            coinTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             coinTableView.topAnchor.constraint(equalTo: holdingsColumnLabel.bottomAnchor, constant: 16),
             
             coinColumnLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -120,7 +120,7 @@ class HomeViewController: UIViewController {
             
             portfolioTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             portfolioTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            portfolioTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            portfolioTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             portfolioTableView.topAnchor.constraint(equalTo: holdingsColumnLabel.bottomAnchor, constant: 16),
         ])
     }
