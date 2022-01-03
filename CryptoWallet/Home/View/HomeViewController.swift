@@ -26,6 +26,7 @@ class HomeViewController: UIViewController {
     private let holdingsColumnLabel: UILabel = {
         let label = UILabel()
         label.text = "Holdings"
+        label.alpha = 0
         label.font = .preferredFont(forTextStyle: .caption1)
         label.textColor = .theme.secondaryText
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +56,7 @@ class HomeViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
-    
+        
     private let leftCircleButton = CircleButtonView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), buttonName: "info")
     private let rightCircleButton = CircleButtonView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), buttonName: "chevron.right")
     
@@ -67,25 +68,22 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         addViews()
         setupConstraints()
         configureAppearance()
         setupTableView()
-        portfolioTableView.isHidden = true
-        holdingsColumnLabel.alpha = 0
     }
     
     private func addViews() {
         view.addSubview(headerLabel)
         view.addSubview(leftCircleButton)
         view.addSubview(rightCircleButton)
-        view.addSubview(coinTableView)
-        view.addSubview(portfolioTableView)
         view.addSubview(coinColumnLabel)
         view.addSubview(holdingsColumnLabel)
         view.addSubview(priceColumnLabel)
-
+        view.addSubview(portfolioTableView)
+        view.addSubview(coinTableView)
     }
     
     private func setupConstraints() {
@@ -108,22 +106,22 @@ class HomeViewController: UIViewController {
             coinTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             coinTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             coinTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            coinTableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16),
+            coinTableView.topAnchor.constraint(equalTo: holdingsColumnLabel.bottomAnchor, constant: 16),
+            
+            coinColumnLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            coinColumnLabel.topAnchor.constraint(equalTo: rightCircleButton.bottomAnchor, constant: 10),
+            
+            priceColumnLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            priceColumnLabel.topAnchor.constraint(equalTo: rightCircleButton.bottomAnchor, constant: 10),
+            priceColumnLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3.5),
+            
+            holdingsColumnLabel.trailingAnchor.constraint(equalTo: priceColumnLabel.leadingAnchor),
+            holdingsColumnLabel.topAnchor.constraint(equalTo: rightCircleButton.bottomAnchor, constant: 10),
             
             portfolioTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             portfolioTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             portfolioTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            portfolioTableView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16),
-            
-            coinColumnLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            coinColumnLabel.bottomAnchor.constraint(equalTo: coinTableView.topAnchor, constant: -5),
-            
-            priceColumnLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            priceColumnLabel.bottomAnchor.constraint(equalTo: coinTableView.topAnchor, constant: -5),
-            priceColumnLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3.5),
-            
-            holdingsColumnLabel.trailingAnchor.constraint(equalTo: priceColumnLabel.leadingAnchor),
-            holdingsColumnLabel.bottomAnchor.constraint(equalTo: coinTableView.topAnchor, constant: -5),
+            portfolioTableView.topAnchor.constraint(equalTo: holdingsColumnLabel.bottomAnchor, constant: 16),
         ])
     }
     
@@ -170,11 +168,17 @@ class HomeViewController: UIViewController {
         }
         
         if showPortfolio {
-            coinTableView.isHidden = true
-            portfolioTableView.isHidden = false
+            UIView.animate(withDuration: 0.7) { [weak self] in
+                self?.coinTableView.frame.origin.x -= UIScreen.main.bounds.width
+                self?.coinTableView.removeAllConstraints()
+                self?.portfolioTableView.frame.origin.x -= UIScreen.main.bounds.width
+            }
         } else {
-            coinTableView.isHidden = false
-            portfolioTableView.isHidden = true
+            UIView.animate(withDuration: 0.7) { [weak self] in
+                self?.portfolioTableView.frame.origin.x += UIScreen.main.bounds.width
+                self?.coinTableView.frame.origin.x += UIScreen.main.bounds.width
+                self?.portfolioTableView.removeAllConstraints()
+            }
         }
         
     }
@@ -198,4 +202,5 @@ struct ViewController_Previews: PreviewProvider {
         }
     }
 }
+
 
