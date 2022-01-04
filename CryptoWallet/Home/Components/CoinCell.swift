@@ -73,7 +73,7 @@ final class CoinCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -93,13 +93,22 @@ final class CoinCell: UITableViewCell {
         coinImage.layer.cornerRadius = coinImage.frame.height / 2
     }
     
-    public func configureAppearance(coin: Coin) {
+    public func configureAppearance(coin: Coin, isShowHoldingColumn: Bool) {
         coinRankLabel.text = "\(coin.rank)"
         coinSymbolLabel.text = coin.symbol.uppercased()
         currentPriceLabel.text = coin.currentPrice.asCurrencyWith6Decimals()
         priceChangedLabel.text = coin.priceChangePercentage24H?.asPercentString()
         currentHoldingsLabel.text = coin.currentHoldingsValue.asCurrencyWith2Decimals()
         currentHoldingsShortLabel.text = (coin.currentHoldings ?? 0).asNumberString()
+
+        priceChangedLabel.textColor = (coin.priceChangePercentage24H ?? 0) >= 0 ?
+            .theme.green :
+            .theme.red
+        
+        if !isShowHoldingColumn {
+            currentHoldingsLabel.isHidden = true
+            currentHoldingsShortLabel.isHidden = true
+        }
     }
     
     private func addViews() {
@@ -132,9 +141,11 @@ final class CoinCell: UITableViewCell {
             
             rightStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             rightStackView.widthAnchor.constraint(equalToConstant: self.frame.width / 3.5),
+            rightStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
             centerStackView.trailingAnchor.constraint(equalTo: rightStackView.leadingAnchor, constant: -10),
-            centerStackView.leadingAnchor.constraint(equalTo: coinSymbolLabel.trailingAnchor, constant: 20)
+            centerStackView.leadingAnchor.constraint(equalTo: coinSymbolLabel.trailingAnchor, constant: 20),
+            centerStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
 

@@ -106,7 +106,7 @@ class HomeViewController: UIViewController {
             coinTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             coinTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             coinTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            coinTableView.topAnchor.constraint(equalTo: holdingsColumnLabel.bottomAnchor, constant: 16),
+            coinTableView.topAnchor.constraint(equalTo: holdingsColumnLabel.bottomAnchor, constant: 10),
             
             coinColumnLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             coinColumnLabel.topAnchor.constraint(equalTo: rightCircleButton.bottomAnchor, constant: 10),
@@ -121,18 +121,18 @@ class HomeViewController: UIViewController {
             portfolioTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             portfolioTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             portfolioTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            portfolioTableView.topAnchor.constraint(equalTo: holdingsColumnLabel.bottomAnchor, constant: 16),
+            portfolioTableView.topAnchor.constraint(equalTo: holdingsColumnLabel.bottomAnchor, constant: 10),
         ])
     }
     
     private func setupTableView() {
         viewModel.allCoins.bind(to: coinTableView.rx.items(cellIdentifier: CoinCell.identifier, cellType: CoinCell.self)) { row, item, cell in
-            cell.configureAppearance(coin: item)
+            cell.configureAppearance(coin: item, isShowHoldingColumn: false)
         }
         .disposed(by: bag)
         
         viewModel.portfolioCoins.bind(to: portfolioTableView.rx.items(cellIdentifier: CoinCell.identifier, cellType: CoinCell.self)) { row, item, cell in
-            cell.configureAppearance(coin: item)
+            cell.configureAppearance(coin: item, isShowHoldingColumn: true)
         }
         .disposed(by: bag)
     }
@@ -148,39 +148,39 @@ class HomeViewController: UIViewController {
         
         leftCircleButton.translatesAutoresizingMaskIntoConstraints = false
         rightCircleButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        coinTableView.rowHeight = 60
     }
     
     @objc private func chevronWasTapped() {
         showPortfolio.toggle()
         
         UIView.animate(withDuration: 0.4) { [weak self] in
-            if self!.showPortfolio {
+            
+            guard let portfolioIsShowed = self?.showPortfolio else { return }
+            
+            if portfolioIsShowed {
                 self?.rightCircleButton.transform = CGAffineTransform(rotationAngle: .pi)
                 self?.headerLabel.text = "Portfolio"
                 self?.leftCircleButton.imageName = "plus"
                 self?.holdingsColumnLabel.alpha = 1
+                
+                //TableView
+                self?.coinTableView.frame.origin.x -= UIScreen.main.bounds.width
+                self?.coinTableView.removeAllConstraints()
+                self?.portfolioTableView.frame.origin.x -= UIScreen.main.bounds.width
             } else {
                 self?.rightCircleButton.transform = CGAffineTransform.identity
                 self?.headerLabel.text = "Live Prices"
                 self?.leftCircleButton.imageName = "info"
                 self?.holdingsColumnLabel.alpha = 0
-            }
-        }
-        
-        if showPortfolio {
-            UIView.animate(withDuration: 0.7) { [weak self] in
-                self?.coinTableView.frame.origin.x -= UIScreen.main.bounds.width
-                self?.coinTableView.removeAllConstraints()
-                self?.portfolioTableView.frame.origin.x -= UIScreen.main.bounds.width
-            }
-        } else {
-            UIView.animate(withDuration: 0.7) { [weak self] in
+                
+                //TableView
                 self?.portfolioTableView.frame.origin.x += UIScreen.main.bounds.width
                 self?.coinTableView.frame.origin.x += UIScreen.main.bounds.width
                 self?.portfolioTableView.removeAllConstraints()
             }
         }
-        
     }
 }
 
