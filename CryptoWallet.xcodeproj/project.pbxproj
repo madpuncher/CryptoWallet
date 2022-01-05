@@ -24,6 +24,7 @@
 		0250610627821B3C0073C2BD /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 0250610527821B3C0073C2BD /* RxRelay */; };
 		0250610827821B3C0073C2BD /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0250610727821B3C0073C2BD /* RxSwift */; };
 		0250610A278312040073C2BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02506109278312040073C2BD /* Color.swift */; };
+		0280B74E2785B75C00F5DC36 /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0280B74D2785B75C00F5DC36 /* NetworkingError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		025060FC2781FFEB0073C2BD /* CoinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinCell.swift; sourceTree = "<group>"; };
 		025061002782196B0073C2BD /* CoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinViewModel.swift; sourceTree = "<group>"; };
 		02506109278312040073C2BD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		0280B74D2785B75C00F5DC36 /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				02422D012780FF4500A58341 /* AppDelegate.swift */,
 				025060E72781F6230073C2BD /* Home */,
 				02422D1F2781BCB500A58341 /* Models */,
+				0280B7452785B35A00F5DC36 /* Helpers */,
 				02422D182781B8F300A58341 /* Extensions */,
 				02422D1B2781B97000A58341 /* LaunchScreen.storyboard */,
 				02422D0A2780FF4500A58341 /* Assets.xcassets */,
@@ -128,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				025060EB2781F9910073C2BD /* Coin.swift */,
+				0280B74D2785B75C00F5DC36 /* NetworkingError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -150,6 +154,13 @@
 				025060FC2781FFEB0073C2BD /* CoinCell.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		0280B7452785B35A00F5DC36 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +253,7 @@
 				025060F92781FF5B0073C2BD /* PreviewProvider.swift in Sources */,
 				02422D022780FF4500A58341 /* AppDelegate.swift in Sources */,
 				0250610A278312040073C2BD /* Color.swift in Sources */,
+				0280B74E2785B75C00F5DC36 /* NetworkingError.swift in Sources */,
 				02055F1C2783296C005EB5D1 /* CoinDataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
