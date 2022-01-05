@@ -25,6 +25,7 @@ final class CoinDataService {
                 self.allCoins.onNext(coins)
             }
     }
+
 }
 
 

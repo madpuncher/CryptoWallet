@@ -154,28 +154,25 @@ class HomeViewController: UIViewController {
     
     @objc private func chevronWasTapped() {
         showPortfolio.toggle()
+        coinTableView.reloadData()
         
         UIView.animate(withDuration: 0.4) { [weak self] in
             
             guard let portfolioIsShowed = self?.showPortfolio else { return }
             
+            self?.rightCircleButton.transform = (portfolioIsShowed ?
+            CGAffineTransform(rotationAngle: .pi) :
+            CGAffineTransform.identity)
+            
+            self?.headerLabel.text = portfolioIsShowed ? "Portfolio" : "Live Prices"
+            self?.leftCircleButton.imageName = portfolioIsShowed ? "plus" : "info"
+            self?.holdingsColumnLabel.alpha =  portfolioIsShowed ? 1 : 0
+            
             if portfolioIsShowed {
-                self?.rightCircleButton.transform = CGAffineTransform(rotationAngle: .pi)
-                self?.headerLabel.text = "Portfolio"
-                self?.leftCircleButton.imageName = "plus"
-                self?.holdingsColumnLabel.alpha = 1
-                
-                //TableView
                 self?.coinTableView.frame.origin.x -= UIScreen.main.bounds.width
                 self?.coinTableView.removeAllConstraints()
                 self?.portfolioTableView.frame.origin.x -= UIScreen.main.bounds.width
             } else {
-                self?.rightCircleButton.transform = CGAffineTransform.identity
-                self?.headerLabel.text = "Live Prices"
-                self?.leftCircleButton.imageName = "info"
-                self?.holdingsColumnLabel.alpha = 0
-                
-                //TableView
                 self?.portfolioTableView.frame.origin.x += UIScreen.main.bounds.width
                 self?.coinTableView.frame.origin.x += UIScreen.main.bounds.width
                 self?.portfolioTableView.removeAllConstraints()

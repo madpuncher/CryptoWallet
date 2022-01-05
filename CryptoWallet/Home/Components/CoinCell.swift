@@ -1,4 +1,5 @@
 import UIKit
+import SDWebImage
 
 final class CoinCell: UITableViewCell {
     
@@ -8,6 +9,7 @@ final class CoinCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .caption1)
         label.textColor = .theme.secondaryText
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,6 +25,7 @@ final class CoinCell: UITableViewCell {
     private let currentPriceLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 16)
+        label.adjustsFontSizeToFitWidth = true
         label.textColor = .theme.accent
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -52,8 +55,9 @@ final class CoinCell: UITableViewCell {
     
     private let coinImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "logo")
+        image.image = UIImage(systemName: "questionmark")
         image.clipsToBounds = true
+        image.isHidden = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -73,7 +77,15 @@ final class CoinCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-        
+    
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.startAnimating()
+        indicator.isHidden = false
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+            
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -83,7 +95,6 @@ final class CoinCell: UITableViewCell {
         
         addViews()
         setupConstraints()
-        
         backgroundColor = .theme.background
     }
     
@@ -109,6 +120,8 @@ final class CoinCell: UITableViewCell {
             currentHoldingsLabel.isHidden = true
             currentHoldingsShortLabel.isHidden = true
         }
+        
+        setupImage(urlString: coin.image)
     }
     
     private func addViews() {
@@ -117,6 +130,7 @@ final class CoinCell: UITableViewCell {
         addSubview(coinSymbolLabel)
         addSubview(rightStackView)
         addSubview(centerStackView)
+        addSubview(loadingIndicator)
         
         rightStackView.addArrangedSubview(currentPriceLabel)
         rightStackView.addArrangedSubview(priceChangedLabel)
@@ -130,11 +144,17 @@ final class CoinCell: UITableViewCell {
         NSLayoutConstraint.activate([
             coinRankLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             coinRankLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            coinRankLabel.widthAnchor.constraint(equalToConstant: 30),
             
             coinImage.heightAnchor.constraint(equalToConstant: 30),
             coinImage.widthAnchor.constraint(equalToConstant: 30),
             coinImage.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            coinImage.leadingAnchor.constraint(equalTo: coinRankLabel.trailingAnchor, constant: 10),
+            coinImage.leadingAnchor.constraint(equalTo: coinRankLabel.trailingAnchor),
+            
+            loadingIndicator.heightAnchor.constraint(equalToConstant: 30),
+            loadingIndicator.widthAnchor.constraint(equalToConstant: 30),
+            loadingIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            loadingIndicator.leadingAnchor.constraint(equalTo: coinRankLabel.trailingAnchor),
             
             coinSymbolLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             coinSymbolLabel.leadingAnchor.constraint(equalTo: coinImage.trailingAnchor, constant: 6),
@@ -148,5 +168,12 @@ final class CoinCell: UITableViewCell {
             centerStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
-
+    
+    private func setupImage(urlString: String) {
+        coinImage.sd_setImage(with: URL(string: urlString)) { [weak self] _, _, _, _ in
+            self?.loadingIndicator.stopAnimating()
+            self?.loadingIndicator.isHidden = true
+            self?.coinImage.isHidden = false
+        }
+    }
 }

@@ -1,5 +1,7 @@
 import Foundation
 import RxSwift
+import UIKit
+import SDWebImage
 
 final class CoinViewModel {
     private(set) var allCoins = PublishSubject<[Coin]>()

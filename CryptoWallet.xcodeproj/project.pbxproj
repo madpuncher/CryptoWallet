@@ -25,6 +25,7 @@
 		0250610827821B3C0073C2BD /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0250610727821B3C0073C2BD /* RxSwift */; };
 		0250610A278312040073C2BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02506109278312040073C2BD /* Color.swift */; };
 		0280B74E2785B75C00F5DC36 /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0280B74D2785B75C00F5DC36 /* NetworkingError.swift */; };
+		0280B75C2786136F00F5DC36 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0280B75B2786136F00F5DC36 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 				02055F1F27832DBF005EB5D1 /* Alamofire in Frameworks */,
 				0250610627821B3C0073C2BD /* RxRelay in Frameworks */,
 				0250610427821B3C0073C2BD /* RxCocoa in Frameworks */,
+				0280B75C2786136F00F5DC36 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +186,7 @@
 				0250610527821B3C0073C2BD /* RxRelay */,
 				0250610727821B3C0073C2BD /* RxSwift */,
 				02055F1E27832DBF005EB5D1 /* Alamofire */,
+				0280B75B2786136F00F5DC36 /* SDWebImage */,
 			);
 			productName = CryptoWallet;
 			productReference = 02422CFE2780FF4500A58341 /* CryptoWallet.app */;
@@ -216,6 +219,7 @@
 			packageReferences = (
 				0250610227821B3C0073C2BD /* XCRemoteSwiftPackageReference "RxSwift" */,
 				02055F1D27832DBF005EB5D1 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				0280B75A2786136F00F5DC36 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 02422CFF2780FF4500A58341 /* Products */;
 			projectDirPath = "";
@@ -475,6 +479,14 @@
 				kind = branch;
 			};
 		};
+		0280B75A2786136F00F5DC36 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -497,6 +509,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0250610227821B3C0073C2BD /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		0280B75B2786136F00F5DC36 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0280B75A2786136F00F5DC36 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
