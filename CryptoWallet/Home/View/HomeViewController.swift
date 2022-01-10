@@ -60,6 +60,8 @@ class HomeViewController: UIViewController {
     private let leftCircleButton = CircleButtonView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), buttonName: "info")
     private let rightCircleButton = CircleButtonView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), buttonName: "chevron.right")
     
+    private let searchBarView = SearchBarView()
+    
     private let viewModel: CoinViewModel = CoinViewModel()
     
     private var showPortfolio = false
@@ -84,6 +86,7 @@ class HomeViewController: UIViewController {
         view.addSubview(priceColumnLabel)
         view.addSubview(portfolioTableView)
         view.addSubview(coinTableView)
+        view.addSubview(searchBarView)
     }
     
     private func setupConstraints() {
@@ -106,23 +109,29 @@ class HomeViewController: UIViewController {
             coinTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             coinTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             coinTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            coinTableView.topAnchor.constraint(equalTo: holdingsColumnLabel.bottomAnchor, constant: 10),
+            coinTableView.topAnchor.constraint(equalTo: holdingsColumnLabel.bottomAnchor, constant: 15),
             
             coinColumnLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            coinColumnLabel.topAnchor.constraint(equalTo: rightCircleButton.bottomAnchor, constant: 10),
+            coinColumnLabel.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 10),
             
             priceColumnLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            priceColumnLabel.topAnchor.constraint(equalTo: rightCircleButton.bottomAnchor, constant: 10),
+            priceColumnLabel.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 15),
             priceColumnLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3.5),
             
             holdingsColumnLabel.trailingAnchor.constraint(equalTo: priceColumnLabel.leadingAnchor),
-            holdingsColumnLabel.topAnchor.constraint(equalTo: rightCircleButton.bottomAnchor, constant: 10),
+            holdingsColumnLabel.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 15),
             
             portfolioTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             portfolioTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             portfolioTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             portfolioTableView.topAnchor.constraint(equalTo: holdingsColumnLabel.bottomAnchor, constant: 10),
+            
+            searchBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            searchBarView.heightAnchor.constraint(equalToConstant: 50),
+            searchBarView.topAnchor.constraint(equalTo: leftCircleButton.bottomAnchor, constant: 10)
         ])
+
     }
     
     private func setupTableView() {
@@ -146,10 +155,15 @@ class HomeViewController: UIViewController {
         rightCircleButton.isUserInteractionEnabled = true
         rightCircleButton.addGestureRecognizer(tapGesture)
         
+        searchBarView.translatesAutoresizingMaskIntoConstraints = false
         leftCircleButton.translatesAutoresizingMaskIntoConstraints = false
         rightCircleButton.translatesAutoresizingMaskIntoConstraints = false
         
         coinTableView.rowHeight = 60
+    
+        searchBarView.layer.cornerRadius = 25
+        searchBarView.layer.borderColor = UIColor.theme.accent?.cgColor.copy(alpha: 0.2)
+        searchBarView.layer.borderWidth = 1
     }
     
     @objc private func chevronWasTapped() {
@@ -199,5 +213,4 @@ struct ViewController_Previews: PreviewProvider {
         }
     }
 }
-
 
